@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcyr4bw5fki3t"]
+
+[ext_resource type="Texture2D" uid="uid://bikmqjrxlrpt5" path="res://assets/textures/other/Spiked Ball.png" id="1_7a7y0"]
+[ext_resource type="Script" uid="uid://bkjh12vkkmy0s" path="res://scripts/trap.gd" id="1_d2mqm"]
+[ext_resource type="PackedScene" uid="uid://0d28pxuaf6x2" path="res://scenes/death_zone.tscn" id="2_d2mqm"]
+
+[sub_resource type="Animation" id="Animation_cx2lw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathZone:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d2mqm"]
+resource_name = "move"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathZone:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(100, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_60m7a"]
+_data = {
+&"RESET": SubResource("Animation_cx2lw"),
+&"move": SubResource("Animation_d2mqm")
+}
+
+[node name="Spike" type="Node2D" groups=["traps"]]
+script = ExtResource("1_d2mqm")
+metadata/_edit_group_ = true
+
+[node name="DeathZone" parent="." instance=ExtResource("2_d2mqm")]
+scale = Vector2(1.3, 0.9)
+
+[node name="Sprite2D" type="Sprite2D" parent="DeathZone"]
+scale = Vector2(0.769231, 1.11111)
+texture = ExtResource("1_7a7y0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_60m7a")
+}
+autoplay = "move"
