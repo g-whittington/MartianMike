@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbaojivfu06ij"]
+
+[ext_resource type="Texture2D" uid="uid://p161oncipkea" path="res://assets/textures/bg/Blue.png" id="1_bkp1e"]
+[ext_resource type="Script" uid="uid://0awldj3tpvc0" path="res://scripts/background.gd" id="1_y0upk"]
+
+[node name="background" type="Parallax2D"]
+repeat_size = Vector2(640, 640)
+autoscroll = Vector2(-25, -25)
+script = ExtResource("1_y0upk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("1_bkp1e")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 640)

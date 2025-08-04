@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bkjh12vkkmy0s" path="res://scripts/trap.gd" id="1_846d5"]
 [ext_resource type="Texture2D" uid="uid://drvsd4utqx0t4" path="res://assets/textures/other/Saw.png" id="1_kprxg"]
-[ext_resource type="PackedScene" uid="uid://0d28pxuaf6x2" path="res://scenes/death_zone.tscn" id="2_846d5"]
 
 [sub_resource type="Animation" id="Animation_161w5"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DeathZone/Sprite2D:frame")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27,7 +26,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DeathZone/Sprite2D:frame")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -43,14 +42,14 @@ _data = {
 &"spin": SubResource("Animation_846d5")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kprxg"]
+radius = 20.025
+
 [node name="Saw" type="Node2D" groups=["traps"]]
 script = ExtResource("1_846d5")
 
-[node name="DeathZone" parent="." instance=ExtResource("2_846d5")]
-scale = Vector2(1.9, 1.3)
-
-[node name="Sprite2D" type="Sprite2D" parent="DeathZone"]
-scale = Vector2(0.526316, 0.769231)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 1)
 texture = ExtResource("1_kprxg")
 hframes = 8
 
@@ -59,3 +58,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_cxxip")
 }
 autoplay = "spin"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_kprxg")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

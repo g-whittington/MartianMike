@@ -1,8 +1,8 @@
 extends Node2D
 
-@onready var death_zone: Area2D = $DeathZone
+signal touched_player
 
-func _ready() -> void:
-	# maybe bad? Must always be in a Traps sub node to work
-	death_zone.spawn_position = $"../SpawnPosition"
-	
+# signal up when player is in collision shape
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is Player:
+		touched_player.emit()
